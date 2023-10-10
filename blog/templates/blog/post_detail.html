@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Post Detail</title>
+</head>
+<style>
+    a {
+        text-decoration: none;
+    }
+
+    .text {
+        font-size: 16px;
+    }
+
+    .controls {
+        display: flex;
+        gap: 6px;
+    }
+
+    .btn {
+        padding: 5px 10px;
+        border: 1px solid silver;
+        border-radius: 5px;
+    }
+
+    .btn:hover {
+        color: white;
+        background-color: #90acf6;
+    }
+
+    .comments_wrapper {
+        margin-top: 20px;
+    }
+
+    .comments_wrapper .comment {
+        padding: 5px 10px;
+        border: 1px solid silver;
+        border-radius: 5px;
+        margin-top: 10px;
+    }
+
+    .comments_wrapper .comment .author {
+        font-size: 12px;
+        opacity: 0.8;
+    }
+
+    .comments_wrapper .comment .date {
+        font-size: 12px;
+        opacity: 0.8;
+    }
+</style>
+<body>
+<div>
+    <a href="{% url 'post_list' %}" class="btn">
+        Back to List
+    </a>
+    <h1>Post Detail</h1>
+    <h1>Category: {{ post.category.title }}</h1>
+    <h1>Created: {{ post.created }}</h1>
+    {% if post.isDraft %}
+    <h2>Draft</h2>
+    {% endif %}
+    <h1 class="text">{{ post.title }}</h1>
+    <hr>
+    <div class="controls">
+        <a href="{% url 'post_edit' post_pk=post.pk%}" class="btn">
+            Edit
+        </a>
+        <a href="{% url 'post_remove' post_pk=post.pk%}" class="btn">
+            Remove Post
+        </a>
+        <a href="{% url 'post_feedback' post_pk=post.pk%}" class="btn">
+            Reviews
+        </a>
+        {% if post.isDraft == True %}
+        <a href="{% url 'post_publish' post_pk=post.pk%}" class="btn">
+            Publish Post
+        </a>
+        {% endif %}
+    </div>
+    <div class="comments_wrapper">
+        Comments {{comments_count}}:
+        {% for comment in comments %}
+        <div class="comment">
+            <p class="author">Author: {{ comment.author }}</p>
+            <p>{{ comment.text }}...</p>
+            <div style="display: flex; justify-content: end">
+                <span class="date">Author: {{ comment.published_date }}</span>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+</body>
+</html>

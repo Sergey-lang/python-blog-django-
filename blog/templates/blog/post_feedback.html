@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Post Detail</title>
+</head>
+<style>
+    a {
+        text-decoration: none;
+    }
+
+    .text {
+        font-size: 16px;
+    }
+
+    .btn {
+        padding: 5px 10px;
+        border: 1px solid silver;
+        border-radius: 5px;
+    }
+
+    .btn:hover {
+        color: white;
+        background-color: #90acf6;
+    }
+
+    .feedback_wrapper .feedback {
+        padding: 5px 10px;
+        border: 1px solid silver;
+        border-radius: 5px;
+        margin-top: 10px;
+    }
+
+    .feedback_wrapper .feedback .author {
+        font-size: 12px;
+        opacity: 0.8;
+    }
+
+    .feedback_wrapper .feedback .date {
+        font-size: 12px;
+        opacity: 0.8;
+    }
+
+    .rating {
+        display: flex;
+    }
+
+</style>
+<body>
+<div>
+    <h1>Post Feedback</h1>
+    <hr>
+    <div class="feedback_wrapper">
+        Feedbacks:
+        {% for feedback in feedbacks %}
+        <div class="feedback">
+            <p class="author">Author: {{ feedback.author }}</p>
+            <p>{{ feedback.text }}...</p>
+            <div style="display: flex; justify-content: end">
+                <span class="date">Published: {{ feedback.published_date }}</span>
+            </div>
+             <div class="rating">
+             Rating: {{feedback.rating}}
+        </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+</body>
+</html>

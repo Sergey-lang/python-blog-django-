@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Post list</title>
+</head>
+<style>
+    .post-wrapper {
+        padding: 5px;
+    }
+
+    .post-wrapper .post {
+        display: flex;
+        flex-direction: column;
+        border: 2px solid silver;
+        border-radius: 6px;
+        padding: 5px 15px;
+        margin: 10px 0;
+    }
+
+    .tabs {
+        display: flex;
+        gap: 5px;
+        margin-bottom: 10px;
+    }
+
+    .btn {
+        padding: 5px 10px;
+        border: 1px solid silver;
+        border-radius: 5px;
+        text-decoration: none;
+    }
+
+    .btn:hover {
+        color: white;
+        background-color: #90acf6;
+    }
+
+    .title {
+        font-size: 14px;
+        margin-top: 15px;
+        font-weight: 600;
+    }
+</style>
+<body>
+<div class="tabs">
+    <a href="{% url 'post_list' %}" class="btn">
+        Published
+    </a>
+    <a href="{% url 'post_draft' %}" class="btn">
+        Draft
+    </a>
+</div>
+<div style="margin-bottom: 10px">
+    <a href="{% url 'post_new' %}" class="btn">
+        Add new Post
+    </a>
+</div>
+<div class="title">Total count: {{count}}</div>
+<div class="post-wrapper">
+    {% for post in posts %}
+    <div class="post">
+        <a href="{% url 'post_detail' post_pk=post.pk %}">
+            <h3>{{ post.title }}</h3>
+        </a>
+        <p>{{ post.text }}...</p>
+    </div>
+    {% endfor %}
+</div>
+<p class="title">Select category:</p>
+<div class="tabs">
+    {% for category in categories %}
+    <a href="{% url 'post_by_category' category_pk=category.pk %}" class="btn">
+        {{category.title}}
+    </a>
+    {% endfor %}
+</div>
+</body>
+</html>
