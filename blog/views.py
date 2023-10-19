@@ -16,7 +16,7 @@ def post_list(request):
 
 
 def post_by_rating(request):
-    posts = Post.objects.values('title', 'pk').annotate(Avg('post_feedbacks__rating')).order_by(
+    posts = Post.objects.values('title', 'text', 'author', 'pk').annotate(Avg('post_feedbacks__rating')).order_by(
         '-post_feedbacks__rating__avg')[:5]
     count = posts.count()
     categories = PostCategory.objects.all()

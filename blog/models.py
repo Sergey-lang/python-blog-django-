@@ -19,6 +19,7 @@ class Post(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     published_date = models.DateTimeField(auto_now_add=True)
     category = models.ForeignKey(PostCategory, on_delete=models.CASCADE, blank=True, null=True, verbose_name='Category')
+    author = models.ForeignKey('auth.USER', on_delete=models.CASCADE, blank=True, null=True)
 
     def __str__(self):
         return f"{self.title}"

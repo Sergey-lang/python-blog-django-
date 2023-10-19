@@ -41,6 +41,11 @@
         margin-top: 15px;
         font-weight: 600;
     }
+
+    .author {
+        font-size: 12px;
+        opacity: 0.8;
+    }
 </style>
 <body>
 <div class="tabs">
@@ -59,23 +64,26 @@
         Add new Post
     </a>
 </div>
-<div class="title">Total count: {{count}}</div>
+<div class="title">Total count: {{ count }}</div>
 <div class="post-wrapper">
     {% for post in posts %}
-    <div class="post">
-        <a href="{% url 'post_detail' post_pk=post.pk %}">
-            <h3>{{ post.title }}</h3>
-        </a>
-        <p>{{ post.text }}...</p>
-    </div>
+        <div class="post">
+            <a href="{% url 'post_detail' post_pk=post.pk %}">
+                <h3>{{ post.title }}</h3>
+            </a>
+            <div style="display: flex">
+                <span class="author">Author: {{ post.author }}</span>
+            </div>
+            <p>{{ post.text }}...</p>
+        </div>
     {% endfor %}
 </div>
 <p class="title">Select category:</p>
 <div class="tabs">
     {% for category in categories %}
-    <a href="{% url 'post_by_category' category_pk=category.pk %}" class="btn">
-        {{category.title}}
-    </a>
+        <a href="{% url 'post_by_category' category_pk=category.pk %}" class="btn">
+            {{ category.title }}
+        </a>
     {% endfor %}
 </div>
 </body>
