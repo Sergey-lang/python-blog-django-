@@ -36,7 +36,9 @@ class Comment(models.Model):
 
 
 class PostFeedback(models.Model):
-    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    # PostFeedback model connect to Post
+    # related_name to connect Post PostFeedback(connected name)
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name="post_feedbacks")
     author = models.ForeignKey('auth.USER', on_delete=models.CASCADE)
     text = models.CharField(max_length=255, verbose_name='Text')
     created = models.DateTimeField(auto_now_add=True)

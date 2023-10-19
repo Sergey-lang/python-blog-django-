@@ -1,5 +1,6 @@
 from datetime import datetime
 
+from django.db.models import Avg
 from django.shortcuts import render, redirect, get_object_or_404
 from blog.models import Post, Comment, PostCategory, PostFeedback
 from blog.forms import PostForm
@@ -13,11 +14,11 @@ def post_list(request):
     context = {'posts': posts, 'categories': categories, 'count': count}
     return render(request, 'blog/post_list.html', context)
 
+
 def post_by_rating(request):
-    feedbacks = PostFeedback.objects.order_by('-rating')
-    # Post.objects.annotate(avg_rating=Avg("<тут имя указанное в related_name>"))
-    posts = set([i.post for i in feedbacks]) # не надо так делать(
-    count = len(posts)
+    posts = Post.objects.values('title', 'pk').annotate(Avg('post_feedbacks__rating')).order_by(
+        '-post_feedbacks__rating__avg')[:5]
+    count = posts.count()
     categories = PostCategory.objects.all()
     context = {'posts': posts, 'categories': categories, 'count': count}
     return render(request, 'blog/post_list.html', context)
