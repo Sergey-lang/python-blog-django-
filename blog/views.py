@@ -14,6 +14,13 @@ def post_list(request):
     context = {'posts': posts, 'categories': categories, 'count': count}
     return render(request, 'blog/post_list.html', context)
 
+def my_post_list(request):
+    posts = Post.objects.filter(author=request.user)
+    count = posts.count()
+    categories = PostCategory.objects.all()
+    context = {'posts': posts, 'categories': categories, 'count': count}
+    return render(request, 'blog/my_post_list.html', context)
+
 
 def post_by_rating(request):
     posts = Post.objects.values('title', 'text', 'author', 'pk').annotate(Avg('post_feedbacks__rating')).order_by(

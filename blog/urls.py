@@ -1,10 +1,11 @@
 from django.urls import path
 
 from blog.views import post_list, post_detail, post_new, post_edit, post_remove, post_list_draft, post_publish, \
-    post_by_category, post_feedback, post_by_rating
+    post_by_category, post_feedback, post_by_rating, my_post_list
 
 urlpatterns = [
     path('', post_list, name='post_list'),
+    path('posts/my_posts', my_post_list, name='my_post_list'),
     path('posts/rating', post_by_rating, name='post_by_rating'),
     path('post/detail/feedback/<int:post_pk>', post_feedback, name='post_feedback'),
     path('post/draft', post_list_draft, name='post_draft'),
